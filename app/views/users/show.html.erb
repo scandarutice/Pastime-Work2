@@ -11,7 +11,8 @@
     <div class="row">
       <div class="chat-side col-2 mt-5">
         <div class="user-profile lead">
-          <%= @user.name%> さんを<button type="button" class="btn btn-primary btn-sm mt-2 ml-4">スカウトする</button>
+          <%= @user.name%> さんを
+          <%= render 'relationships/follow_button', user: @user %>
         </div>
         <div class="profile-image mt-4">
           <img src="https://yasei-blog.com/wp-content/uploads/2019/06/fd1d41c02b1c1935e5d9725d732b4d67.png" class="img-circle ml-4" alt="参考画像" width="100" height="100">
