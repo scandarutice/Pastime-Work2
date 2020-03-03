@@ -1,0 +1,147 @@
+ 
+<body>
+  <header>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-6">Pastime Workで自分らしく！</h1>
+        <p class="lead">趣味を仕事に。遊んで稼ぐ時代をみんなで。</p>
+      </div>
+    </div>
+  </header>
+<div class="wrapper">
+  <div class="container">
+    <ul class="nav nav-pills nav-fill py-3 mt-3 fixed-bottom">
+      <li class="nav-item">
+        <a class="nav-link" href="/users/edit">ユーザー情報の編集</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/groups/new">グループの作成・編集</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">フォローしているユーザー</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/">topページへ</a>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-outline-primary" data-toggle="modal" data-target="#post">Let's 発信</button>
+      </li>
+      <li class="nav-item">
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+  <div class="main-content container">
+    <div class="row">
+      <div class="chat-side col-2 mt-3">
+        <div class="user-profile lead">
+          <%= link_to current_user.name, user_path(current_user), class: "header__right--btn" %> <small>さんのマイページ</small>
+        </div>
+        <div class="profile-image mt-5">
+          <img src="https://yasei-blog.com/wp-content/uploads/2019/06/fd1d41c02b1c1935e5d9725d732b4d67.png" class="img-circle ml-4" alt="参考画像" width="100" height="100">
+        </div>
+        <div class="profile-text mt-5">
+          <pre>
+      ここに
+      プロフィールを
+      書き込んで
+      表示する
+          </pre>
+        </div>
+
+        <div class="groups">
+          <a href="#">
+          </a>
+        </div>
+      </div>
+
+
+      <div class="chat-main col-8 mt-3">
+       
+          <div class="main-header">
+            <div class="group-info row">
+              <h5 class="current-group ml-5">
+                aaa
+              </h5>
+              <ul class="member-list ml-5">
+                参加メンバー：
+                <li class="member-list__member">poppi</li>
+              </ul>
+            </div>
+          </div>
+          <div class="messages">
+            <% @posts.reverse_each do |post| %>
+              <div class="message">
+                <div class ="upper-info">
+                  <div class="upper-info__right ml-5">
+                    <small><%= simple_time(post.created_at) %></small>
+                  </div>
+                  <div class="upper-info__left lead ml-5">
+                    <%= link_to post.user.name, user_path(post.user) %>さんの投稿
+                  </div>
+                </div>
+                <h4 class="text-center">
+                <%= simple_format(post.text) %>
+                </h4>
+              </div>
+            <% end %>
+          </div>
+      </div>
+
+
+      <div class="chat-side col-2 mt-3">
+        <div class="user-profile lead">
+          <%= link_to current_user.name, user_path(current_user), class: "header__right--btn" %> さんを<button type="button" class="btn btn-primary btn-sm mt-2 ml-4">スカウトする</button>
+        </div>
+        <div class="profile-image mt-4">
+          <img src="https://yasei-blog.com/wp-content/uploads/2019/06/fd1d41c02b1c1935e5d9725d732b4d67.png" class="img-circle ml-4" alt="参考画像" width="100" height="100">
+        </div>
+        <div class="profile-text mt-5">
+          <pre>
+      ここに
+      プロフィールを
+      書き込んで
+      表示する
+          </pre>
+        </div>
+      </div>
+
+  <!-- 2.モーダルの配置 -->
+  <div class="modal" id="post" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+
+          <!-- 3.モーダルのコンテンツ -->
+          <div class="modal-content">
+
+              <!-- 4.モーダルのヘッダ -->
+              <div class="modal-header">
+                <h4>あなたの魅力を発信しましょう！</h4>
+              </div>
+
+              <!-- 5.モーダルのボディ -->
+            <%= form_with model: @post, local: true do |form| %>
+              <div class="error-message"></div>
+              <div class="modal-body">
+                <p>何を発信しますか？<br>
+                  <%= form.text_area :text, class: "form-control rows=3"%>
+                </p>
+                <label class="input-box__image" for="message_image">
+                  <p class="img-btn">画像・動画を選択<i class="fa fa-camera fa-fw"></i>
+                  <input class="input-box__image__file" type="file" name="message[image]" id="message_image"></p>
+                </label>
+              </div>
+              <!-- 6.モーダルのフッタ -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                <%= form.submit '発信!', class:"btn btn-primary" %>
+              </div>
+            <% end %>
+          </div>
+      </div>
+  </div>
+</div>
+</body>
+</html>
